@@ -1,3 +1,7 @@
+.PHONY: run
+run: build
+	@./bin/$(APP_NAME)
+
 .PHONY: tailwind-watch
 tailwind-watch:
 	tailwindcss -i ./static/css/input.css -o ./static/css/style.css --watch
@@ -12,7 +16,7 @@ templ-generate:
 
 .PHONY: templ-watch
 templ-watch:
-	templ generate --watch
+	templ generate --watch -proxy=http://localhost:8080
 
 .PHONY: dev
 dev:
