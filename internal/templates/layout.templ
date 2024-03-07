@@ -1,0 +1,43 @@
+package templates
+
+templ header(title string) {
+	<head>
+		<title>{ title }</title>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<script src="static/script/htmx.min.js" nonce={ ctx.Value("htmxNonce").(string) }></script>
+		<script src="static/script/response-targets.js" nonce={ ctx.Value("responseTargetsNonse").(string) }></script>
+		<link rel="stylesheet" href="static/css/style.css" nonce={ ctx.Value("twNonce").(string) }/>
+	</head>
+}
+
+templ footer() {
+	<footer class="flex flex-col items-center bg-gray-50 p-4">
+		© 2024 Job Search Pipeline
+	</footer>
+}
+
+templ nav() {
+	<nav class="flex flex-col bg-gray-50 p-4 items-center">
+		<div class="self-center whitespace-nowrap text-xl font-semibold dark:text-white" style="width: 0; overflow: visible;">
+			Job Search <span class="text-blue-400">Pipeline</span>
+		</div>
+		<div class="flex flex-row space-x-4">
+			<a href="/">Home</a>
+			<a href="/about">About</a>
+			<a href="/register">Register</a>
+			<a href="/login">Login</a>
+		</div>
+	</nav>
+}
+
+templ Layout(contents templ.Component, title string) {
+	@header(title)
+	<body class="flex flex-col h-full">
+		@nav()
+		<main class="flex h-full flex-col items-center">
+			@contents
+		</main>
+	</body>
+	@footer()
+}
